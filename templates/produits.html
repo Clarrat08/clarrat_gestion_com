@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Produits{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3"><h1 class="h3">Produits</h1><a class="btn btn-primary" href="{{ url_for('ajouter_produit') }}">Ajouter</a></div>
+<div class="table-responsive"><table class="table table-striped align-middle bg-white"><thead><tr><th>ID</th><th>Désignation</th><th>Catégorie</th><th>Prix de vente</th><th>Actions</th></tr></thead><tbody>
+{% for p in produits %}
+<tr><td>{{ p.id_produit }}</td><td>{{ p.designation }}</td><td>{{ p.categorie.libelle }}</td><td>{{ "%.2f"|format(p.prix_vente) }}</td><td class="actions">
+<a class="btn btn-sm btn-outline-primary" href="{{ url_for('modifier_produit', id=p.id_produit) }}">Modifier</a>
+<form method="post" action="{{ url_for('supprimer_produit', id=p.id_produit) }}" onsubmit="return confirm('Supprimer ce produit ?')"><button class="btn btn-sm btn-outline-danger">Supprimer</button></form>
+</td></tr>
+{% else %}<tr><td colspan="5" class="text-center text-muted">Aucun produit.</td></tr>{% endfor %}
+</tbody></table></div>
+{% endblock %}

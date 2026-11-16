@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}{{ titre }}{% endblock %}
+{% block content %}
+<h1 class="h3 mb-3">{{ titre }}</h1>
+{% if not categories %}<div class="alert alert-warning">Créez d'abord au moins une catégorie.</div>{% endif %}
+<form method="post" class="card card-body form-card">
+  <label class="form-label" for="designation">Désignation</label>
+  <input class="form-control mb-3" id="designation" name="designation" maxlength="150" required value="{{ produit.designation if produit else '' }}">
+  <label class="form-label" for="prix_vente">Prix de vente</label>
+  <input class="form-control mb-3" type="number" min="0" step="0.01" id="prix_vente" name="prix_vente" required value="{{ produit.prix_vente if produit else '' }}">
+  <label class="form-label" for="id_categorie">Catégorie</label>
+  <select class="form-select mb-3" id="id_categorie" name="id_categorie" required>
+    <option value="">Choisir une catégorie</option>
+    {% for c in categories %}<option value="{{ c.id_categorie }}" {% if produit and produit.id_categorie == c.id_categorie %}selected{% endif %}>{{ c.libelle }}</option>{% endfor %}
+  </select>
+  <div><button class="btn btn-primary" {% if not categories %}disabled{% endif %}>Enregistrer</button> <a class="btn btn-outline-secondary" href="{{ url_for('produits') }}">Annuler</a></div>
+</form>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}{{ titre }}{% endblock %}
+{% block content %}
+<h1 class="h3 mb-3">{{ titre }}</h1>
+<form method="post" class="card card-body form-card">
+  <label class="form-label" for="libelle">Libellé</label>
+  <input class="form-control mb-3" id="libelle" name="libelle" maxlength="100" required value="{{ categorie.libelle if categorie else '' }}">
+  <div><button class="btn btn-primary">Enregistrer</button> <a class="btn btn-outline-secondary" href="{{ url_for('categories') }}">Annuler</a></div>
+</form>
+{% endblock %}

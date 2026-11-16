@@ -1,0 +1,7 @@
+body { background: #f5f7fb; }
+.stat-card { border: 0; box-shadow: 0 2px 12px rgba(20,40,80,.06); }
+.form-card { max-width: 650px; }
+.table { background: white; }
+.actions { display: flex; gap: .4rem; align-items: center; }
+.actions form { margin: 0; }
+.navbar { box-shadow: 0 2px 8px rgba(0,0,0,.08); }

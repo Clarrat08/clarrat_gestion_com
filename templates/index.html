@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Accueil — Gestion commerciale{% endblock %}
+{% block content %}
+<div class="mb-4">
+  <h1 class="h3">Tableau de bord</h1>
+  <p class="text-muted">Vue d'ensemble de votre activité commerciale.</p>
+</div>
+<div class="row g-3 mb-4">
+  <div class="col-md-4"><div class="card stat-card"><div class="card-body"><div class="text-muted">Catégories</div><div class="display-6">{{ nb_categories }}</div><a href="{{ url_for('categories') }}">Consulter</a></div></div></div>
+  <div class="col-md-4"><div class="card stat-card"><div class="card-body"><div class="text-muted">Produits</div><div class="display-6">{{ nb_produits }}</div><a href="{{ url_for('produits') }}">Consulter</a></div></div></div>
+  <div class="col-md-4"><div class="card stat-card"><div class="card-body"><div class="text-muted">Ventes</div><div class="display-6">{{ nb_ventes }}</div><a href="{{ url_for('ventes') }}">Consulter</a></div></div></div>
+</div>
+<div class="d-flex justify-content-between align-items-center mb-2"><h2 class="h5">Dernières ventes</h2><a class="btn btn-primary btn-sm" href="{{ url_for('ajouter_vente') }}">Nouvelle vente</a></div>
+<div class="table-responsive"><table class="table table-striped bg-white">
+<thead><tr><th>Date</th><th>Produit</th><th>Quantité</th><th>Prix unitaire</th><th>Total</th></tr></thead>
+<tbody>
+{% for v in dernieres_ventes %}
+<tr><td>{{ v.date_vente.strftime('%d/%m/%Y') }}</td><td>{{ v.produit.designation }}</td><td>{{ v.quantite }}</td><td>{{ "%.2f"|format(v.prix_unitaire) }}</td><td>{{ "%.2f"|format(v.prix_unitaire * v.quantite) }}</td></tr>
+{% else %}<tr><td colspan="5" class="text-center text-muted">Aucune vente enregistrée.</td></tr>{% endfor %}
+</tbody></table></div>
+{% endblock %}

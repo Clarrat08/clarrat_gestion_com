@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Nouvelle vente{% endblock %}
+{% block content %}
+<h1 class="h3 mb-3">Enregistrer une vente</h1>
+{% if not produits %}<div class="alert alert-warning">Ajoutez d'abord au moins un produit.</div>{% endif %}
+<form method="post" class="card card-body form-card">
+  <label class="form-label" for="date_vente">Date de vente</label>
+  <input class="form-control mb-3" type="date" id="date_vente" name="date_vente" required value="{{ aujourd_hui }}">
+  <label class="form-label" for="id_produit">Produit</label>
+  <select class="form-select mb-3" id="id_produit" name="id_produit" required>
+    <option value="">Choisir un produit</option>
+    {% for p in produits %}<option value="{{ p.id_produit }}">{{ p.designation }} — {{ "%.2f"|format(p.prix_vente) }}</option>{% endfor %}
+  </select>
+  <label class="form-label" for="quantite">Quantité</label>
+  <input class="form-control mb-3" type="number" min="1" step="1" id="quantite" name="quantite" required>
+  <label class="form-label" for="prix_unitaire">Prix unitaire</label>
+  <input class="form-control mb-3" type="number" min="0" step="0.01" id="prix_unitaire" name="prix_unitaire" required>
+  <div><button class="btn btn-primary" {% if not produits %}disabled{% endif %}>Enregistrer</button> <a class="btn btn-outline-secondary" href="{{ url_for('ventes') }}">Annuler</a></div>
+</form>
+{% endblock %}
